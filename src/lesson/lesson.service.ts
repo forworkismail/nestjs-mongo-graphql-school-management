@@ -4,6 +4,7 @@ import { ObjectID, Repository } from 'typeorm';
 import { Lesson } from './lesson.entity';
 import { ObjectId } from 'mongodb';
 import { v4 as uuid } from 'uuid';
+import { CreateLessonInput } from './lesson.input';
 
 @Injectable()
 export class LessonService {
@@ -14,7 +15,8 @@ export class LessonService {
     return this.lessonRepository.findOne({ _id });
   }
 
-  async createLesson(name, startDate, endDate): Promise<Lesson> {
+  async createLesson(createLessonInput: CreateLessonInput): Promise<Lesson> {
+    const { name, startDate, endDate } = createLessonInput;
     const lesson = this.lessonRepository.create({
       name,
       startDate,
